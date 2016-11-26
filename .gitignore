@@ -5,6 +5,7 @@ typings
 *.js
 *.js.map
 !systemjs.config.js
+!browser-test-shim.js
 
 # IDE #
 .idea/
