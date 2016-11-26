@@ -9,18 +9,17 @@ let fixture: ComponentFixture<AppComponent>;
 let de: DebugElement;
 let el: HTMLElement;
 
-describe('BannerComponent', () => {
-  
+describe('AppComponent', () => {
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent], // declare the test component
+      declarations: [AppComponent],
     });
 
     fixture = TestBed.createComponent(AppComponent);
 
-    comp = fixture.componentInstance; // BannerComponent test instance
+    comp = fixture.componentInstance;
 
-    // query for the title <h1> by CSS element selector
     de = fixture.debugElement.query(By.css('h1'));
     el = de.nativeElement;
 

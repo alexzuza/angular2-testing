@@ -3,41 +3,73 @@
  * Adjust as necessary for your application needs.
  */
 (function (global) {
-  System.config({
+  function mapIndex() {
+    return {
+      'app': 'app',
+      '@angular': 'npm:@angular',
+      'rxjs': 'npm:rxjs',
+      'typescript': 'npm:typescript/lib/typescript.js' //add typescript map
+    };
+  }
+
+  var ngPackages = ['core',
+    'common',
+    'compiler',
+    'forms',
+    'http',
+    'platform-browser',
+    'platform-browser-dynamic',
+    'router'
+  ];
+
+  function mapUmd() {
+    var map = {
+      'app': 'app',
+      'rxjs': 'npm:rxjs',
+    };
+
+    ngPackages.forEach(function (name) {
+      map['@angular/' + name] = 'npm:@angular/' + name + '/bundles/' + name + '.umd.js';
+    });
+
+    return map;
+  }
+
+  System.packageWithIndex = 1;
+
+  var packages = {
+    app: {
+      main: './main.js',
+      defaultExtension: 'js'
+    },
+    rxjs: {
+      defaultExtension: 'js'
+    }
+  };
+
+  if (System.packageWithIndex) {
+    ngPackages.forEach(function (name) {
+      packages['@angular/' + name] = { main: 'index.js' };
+    });
+  }
+
+  var config = {
+    // paths serve as alias
     paths: {
-      // paths serve as alias
       'npm:': 'node_modules/'
     },
-    // map tells the System loader where to look for things
-    map: {
-      // our app is within the app folder
-      app: 'app',
-      // angular bundles
-      '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
-      '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
-      '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
-      '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
-      '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
-      '@angular/http': 'npm:@angular/http/bundles/http.umd.js',
-      '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
-      '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
-      
-      // other libraries
-      'rxjs':                       'npm:rxjs'
-    },
+    map: System.packageWithIndex ? mapIndex() : mapUmd(),
     // packages tells the System loader how to load when no filename and/or no extension
-    packages: {
-      app: {
-        main: './main.js',
-        defaultExtension: 'js'
-      },
-      rxjs: {
-        defaultExtension: 'js'
-      }
-    }
-  });
+    packages: packages
+  };
 
-   if (global.autoBootstrap) { bootstrap(); }
+  if (System.packageWithIndex) {
+    config['transpiler'] = 'typescript';
+  }
+
+  System.config(config);
+
+  if (global.autoBootstrap) { bootstrap(); }
 
   // Bootstrap with a default `AppModule`
   // ignore an `app/app.module.ts` and `app/main.ts`, even if present
@@ -46,19 +78,19 @@
     console.log('Auto-bootstrapping');
 
     // Stub out `app/main.ts` so System.import('app') doesn't fail if called in the index.html
-    System.set(System.normalizeSync('app/main.ts'), System.newModule({ }));
+    System.set(System.normalizeSync('app/main.ts'), System.newModule({}));
 
     // bootstrap and launch the app (equivalent to standard main.ts)
     Promise.all([
       System.import('@angular/platform-browser-dynamic'),
       getAppModule()
     ])
-    .then(function (imports) {
-      var platform = imports[0];
-      var app      = imports[1];
-      platform.platformBrowserDynamic().bootstrapModule(app.AppModule);
-    })
-    .catch(function(err){ console.error(err); });
+      .then(function (imports) {
+        var platform = imports[0];
+        var app = imports[1];
+        platform.platformBrowserDynamic().bootstrapModule(app.AppModule);
+      })
+      .catch(function (err) { console.error(err); });
   }
 
   // Make the default AppModule
@@ -71,22 +103,22 @@
       System.import('@angular/platform-browser'),
       System.import('app/app.component')
     ])
-    .then(function (imports) {
+      .then(function (imports) {
 
-      var core    = imports[0];
-      var browser = imports[1];
-      var appComp = imports[2].AppComponent;
+        var core = imports[0];
+        var browser = imports[1];
+        var appComp = imports[2].AppComponent;
 
-      var AppModule = function() {}
+        var AppModule = function () { }
 
-      AppModule.annotations = [
-        new core.NgModule({
-          imports:      [ browser.BrowserModule ],
-          declarations: [ appComp ],
-          bootstrap:    [ appComp ]
-        })
-      ]
-      return {AppModule: AppModule};
-    })
+        AppModule.annotations = [
+          new core.NgModule({
+            imports: [browser.BrowserModule],
+            declarations: [appComp],
+            bootstrap: [appComp]
+          })
+        ]
+        return { AppModule: AppModule };
+      })
   }
 })(this);
