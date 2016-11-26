@@ -1,1 +1,1 @@
-# Angular 2 TypeScript Boilerplate with SystemJS configuration
+# Angular 2 TypeScript Testing Boilerplate
