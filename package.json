@@ -9,15 +9,15 @@
   },
   "license": "ISC",
   "dependencies": {
-    "@angular/common": "4.0.0-beta.8",
-    "@angular/compiler": "4.0.0-beta.8",
-    "@angular/core": "4.0.0-beta.8",
-    "@angular/forms": "4.0.0-beta.8",
-    "@angular/http": "4.0.0-beta.8",
-    "@angular/platform-browser": "4.0.0-beta.8",
-    "@angular/platform-browser-dynamic": "4.0.0-beta.8",
-    "@angular/router": "4.0.0-beta.8",
-    "@angular/upgrade": "4.0.0-beta.8",
+    "@angular/common": "4.0.0-rc.2",
+    "@angular/compiler": "4.0.0-rc.2",
+    "@angular/core": "4.0.0-rc.2",
+    "@angular/forms": "4.0.0-rc.2",
+    "@angular/http": "4.0.0-rc.2",
+    "@angular/platform-browser": "4.0.0-rc.2",
+    "@angular/platform-browser-dynamic": "4.0.0-rc.2",
+    "@angular/router": "4.0.0-rc.2",
+    "@angular/upgrade": "4.0.0-rc.2",
 
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
@@ -31,6 +31,6 @@
     "@types/node": "^6.0.45",
     "concurrently": "^3.0.0",
     "lite-server": "^2.2.2",
-    "typescript": "^2.1.5"
+    "typescript": "^2.1.6"
   }
 }
