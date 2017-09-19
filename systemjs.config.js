@@ -23,7 +23,7 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
-      
+      'tslib': 'npm:tslib',
       // other libraries
       'rxjs':                       'npm:rxjs'
     },
@@ -35,6 +35,9 @@
       },
       rxjs: {
         defaultExtension: 'js'
+      },
+      tslib: {
+        main: './tslib.js'
       }
     }
   });
