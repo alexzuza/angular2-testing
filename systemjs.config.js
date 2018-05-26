@@ -25,7 +25,8 @@
       '@angular/material': 'npm:@angular/material/bundles/material.umd.js',
       'tslib': 'npm:tslib',
       // other libraries
-      'rxjs':                       'npm:rxjs'
+      'rxjs': 'npm:rxjs',
+      'rxjs/operators': 'npm:rxjs/operators'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -33,9 +34,8 @@
         main: './main.js',
         defaultExtension: 'js'
       },
-      rxjs: {
-        defaultExtension: 'js'
-      },
+      'rxjs': { main: 'index.js', defaultExtension: 'js' },
+      'rxjs/operators': {main: 'index.js', defaultExtension: 'js' },
       tslib: {
         main: './tslib.js'
       }
